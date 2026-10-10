@@ -86,4 +86,33 @@ in a private team repository.
 
 ### 🏠 Pygenic Arc Website
 
-![My Hackathon Website](PASTE_IMAGE_LINK_HERE)
+![My Hackathon Website](Screenshot_10-10-2026_23202_.jpeg)
+---
+
+## 🌐 Live Project Demo
+
+🚀 Explore our Pygenic Arc – Cloud Attack Path Analyzer!
+
+🔗 [Click Here to Visit Our Live Website](https://pygenic-arc.netlify.app/)
+
+### ✨ Website Features
+
+- Interactive Cloud Security Dashboard
+- Cloud Attack Path Visualization
+- Employee Permission Detection
+- Security Risk Analysis
+- Remediation Simulator
+- Automated Investigation
+- Security Reports
+
+### 💻 Project Information
+
+**Project:** Pygenic Arc – Cloud Attack Path Analyzer
+
+**Hackathon:** Anvation 2026
+
+**Team Leader:** Sahana M
+
+**Project Type:** Cybersecurity Web Application
+
+**Note:** This is an educational prototype using synthetic cloud configuration data.
