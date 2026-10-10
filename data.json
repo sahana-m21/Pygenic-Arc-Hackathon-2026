@@ -1,0 +1,106 @@
+{
+  "company": "SecureTech Solutions",
+  "projects": ["A", "B", "C", "D"],
+  "employees": [
+    {
+      "name": "Darshan",
+      "project": "A",
+      "access": ["A", "B"]
+    },
+    {
+      "name": "Priya",
+      "project": "B",
+      "access": ["B"]
+    },
+    {
+      "name": "Rahul",
+      "project": "C",
+      "access": ["C", "D"]
+    },
+    {
+      "name": "Sneha",
+      "project": "A",
+      "access": ["A"]
+    },
+    {
+      "name": "Kiran",
+      "project": "D",
+      "access": ["D"]
+    },
+    {
+      "name": "Ananya",
+      "project": "B",
+      "access": ["B"]
+    },
+    {
+      "name": "Rohan",
+      "project": "C",
+      "access": ["C"]
+    },
+    {
+      "name": "Meghana",
+      "project": "D",
+      "access": ["D", "B"]
+    },
+    {
+      "name": "Varun",
+      "project": "A",
+      "access": ["A"]
+    },
+    {
+      "name": "Kavya",
+      "project": "B",
+      "access": ["B"]
+    }
+  ],
+  "nodes": {
+    "publicAPI": {
+      "label": "Public API",
+      "type": "entry"
+    },
+    "webApp": {
+      "label": "Web Application",
+      "type": "service"
+    },
+    "serviceRole": {
+      "label": "Excessive IAM Role",
+      "type": "weak"
+    },
+    "backupAPI": {
+      "label": "Public Backup Endpoint",
+      "type": "entry"
+    },
+    "backupRole": {
+      "label": "Broad Backup Role",
+      "type": "weak"
+    },
+    "database": {
+      "label": "Customer Database",
+      "type": "critical"
+    }
+  },
+  "edges": [
+    {
+      "from": "publicAPI",
+      "to": "webApp"
+    },
+    {
+      "from": "webApp",
+      "to": "serviceRole"
+    },
+    {
+      "from": "serviceRole",
+      "to": "database",
+      "fix": "C1"
+    },
+    {
+      "from": "backupAPI",
+      "to": "backupRole"
+    },
+    {
+      "from": "backupRole",
+      "to": "database",
+      "fix": "C2"
+    }
+  ]
+}

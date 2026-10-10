@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pygenic Arc - Cloud Attack Path Analyzer</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #081225;
+    color: white;
+}
+
+header {
+    background: #101e36;
+    text-align: center;
+    padding: 25px;
+    border-bottom: 3px solid #00d9ff;
+}
+
+header h1 {
+    color: #00d9ff;
+    font-size: 38px;
+    margin: 5px;
+}
+
+header p {
+    color: #b8c9e0;
+}
+
+.container {
+    padding: 20px;
+    max-width: 1300px;
+    margin: auto;
+}
+
+.card {
+    background: #14243d;
+    padding: 22px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    border: 1px solid #294362;
+}
+
+h2 {
+    color: #00d9ff;
+}
+
+h3 {
+    color: #e2e8f0;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat {
+    background: #1b3151;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.stat h2 {
+    font-size: 30px;
+    margin: 10px;
+}
+
+.stat p {
+    color: #cbd5e1;
+}
+
+button {
+    background: #00c6e8;
+    color: #071225;
+    border: none;
+    padding: 12px 18px;
+    margin: 5px;
+    border-radius: 7px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #66eaff;
+}
+
+button:focus-visible,
+input:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 3px;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th {
+    background: #234466;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #38506d;
+}
+
+.good {
+    color: #4ade80;
+    font-weight: bold;
+}
+
+.bad {
+    color: #fb7185;
+    font-weight: bold;
+}
+
+.warning {
+    background: #49262f;
+    padding: 15px;
+    border-left: 5px solid #fb7185;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.success {
+    background: #164333;
+    padding: 15px;
+    border-left: 5px solid #4ade80;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.graph {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.node {
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 130px;
+    max-width: 190px;
+}
+
+.entry {
+    background: #075985;
+    border: 2px solid #38bdf8;
+}
+
+.service {
+    background: #334155;
+    border: 2px solid #94a3b8;
+}
+
+.weak {
+    background: #854d0e;
+    border: 2px solid #facc15;
+}
+
+.critical {
+    background: #991b1b;
+    border: 2px solid #f87171;
+}
+
+.arrow {
+    font-size: 24px;
+    color: #22d3ee;
+}
+
+.path {
+    padding: 15px;
+    background: #0d1b30;
+    margin: 10px 0;
+    border-radius: 8px;
+    border-left: 4px solid #f97316;
+    line-height: 1.8;
+}
+
+.fix {
+    background: #0d1b30;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+}
+
+.fix label {
+    cursor: pointer;
+    line-height: 1.6;
+}
+
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+small {
+    color: #cbd5e1;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #94a3b8;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>PYGENIC ARC</h1>
+    <h3>Cloud Attack Path Analyzer</h3>
+    <p>Cloud Security | Employee Permissions | Risk Detection</p>
+    <small>SecureTech Solutions - Synthetic Company Demo</small>
+</header>
+
+<div class="container">
+
+    <!-- COMPANY DETAILS -->
+
+    <div class="card">
+
+        <h2>Company Security Dashboard</h2>
+
+        <p>
+            Company Name: <b>SecureTech Solutions</b>
+        </p>
+
+        <p>
+            Our system identifies excessive employee permissions,
+            analyzes cloud attack paths and recommends security fixes.
+        </p>
+
+        <button onclick="analyzeSecurity()">
+            Analyze Security
+        </button>
+
+        <button onclick="selectAllFixes()">
+            Select Recommended Fixes
+        </button>
+
+        <button onclick="applyFixes()">
+            Apply Simulated Fixes
+        </button>
+
+        <button onclick="resetDemo()">
+            Reset Demo
+        </button>
+
+    </div>
+
+
+    <!-- STATISTICS -->
+
+    <div class="stats">
+
+        <div class="stat">
+            <h2>10</h2>
+            <p>Total Employees</p>
+        </div>
+
+        <div class="stat">
+            <h2>4</h2>
+            <p>Total Projects</p>
+        </div>
+
+        <div class="stat">
+            <h2 id="permissionCount">3</h2>
+            <p>Excess Permissions</p>
+        </div>
+
+        <div class="stat">
+            <h2 id="pathCount">2</h2>
+            <p>Active Attack Paths</p>
+        </div>
+
+        <div class="stat">
+            <h2 id="blastCount">0</h2>
+            <p>Reachable Cloud Resources</p>
+        </div>
+
+    </div>
+
+
+    <!-- EMPLOYEE TABLE -->
+
+    <div class="card">
+
+        <h2>Employee Access Management</h2>
+
+        <p>
+            Each employee should access only their assigned project.
+        </p>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Employee</th>
+                        <th>Assigned Project</th>
+                        <th>Current Access</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="employeeTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- PERMISSION ANALYSIS -->
+
+    <div class="card">
+
+        <h2>Automatic Permission Detection</h2>
+
+        <div id="permissionResults">
+            Click Analyze Security to check permissions.
+        </div>
+
+    </div>
+
+
+    <!-- CLOUD GRAPH -->
+
+    <div class="card">
+
+        <h2>Cloud Attack Path Visualization</h2>
+
+        <p>
+            Our analyzer checks whether exposed cloud services
+            can reach critical assets through dangerous permissions.
+        </p>
+
+        <div id="attackGraph"></div>
+
+    </div>
+
+
+    <!-- SECURITY RESULTS -->
+
+    <div class="card">
+
+        <h2>Security Risk Analysis</h2>
+
+        <div id="riskResults"></div>
+
+    </div>
+
+
+    <!-- RECOMMENDED FIXES -->
+
+    <div class="card">
+
+        <h2>Remediation Simulator</h2>
+
+        <p>
+            Select security fixes and apply them in the simulation.
+        </p>
+
+        <div id="fixList"></div>
+
+    </div>
+
+
+    <!-- STATUS -->
+
+    <div class="card">
+
+        <h2>Remediation Results</h2>
+
+        <div id="remediationResults">
+            No remediation applied yet.
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+
+    PYGENIC ARC - CY01 CLOUD ATTACK PATH ANALYZER
+
+    <br>
+
+    Educational Hackathon Prototype | Synthetic Data Only
+
+</footer>
+
+
+<script>
+
+// ===========================================
+// FAKE COMPANY DATA
+// ===========================================
+
+const employees = [
+
+    {
+        name: "Darshan",
+        project: "A",
+        access: ["A", "B"]
+    },
+
+    {
+        name: "Priya",
+        project: "B",
+        access: ["B"]
+    },
+
+    {
+        name: "Rahul",
+        project: "C",
+        access: ["C", "D"]
+    },
+
+    {
+        name: "Sneha",
+        project: "A",
+        access: ["A"]
+    },
+
+    {
+        name: "Kiran",
+        project: "D",
+        access: ["D"]
+    },
+
+    {
+        name: "Ananya",
+        project: "B",
+        access: ["B"]
+    },
+
+    {
+        name: "Rohan",
+        project: "C",
+        access: ["C"]
+    },
+
+    {
+        name: "Meghana",
+        project: "D",
+        access: ["D", "B"]
+    },
+
+    {
+        name: "Varun",
+        project: "A",
+        access: ["A"]
+    },
+
+    {
+        name: "Kavya",
+        project: "B",
+        access: ["B"]
+    }
+
+];
+
+
+// ===========================================
+// PERMISSION FIXES
+// ===========================================
+
+const extraPermissions = [
+
+    {
+        id: "E1",
+        employee: "Darshan",
+        project: "B"
+    },
+
+    {
+        id: "E2",
+        employee: "Rahul",
+        project: "D"
+    },
+
+    {
+        id: "E3",
+        employee: "Meghana",
+        project: "B"
+    }
+
+];
+
+
+// ===========================================
+// SYNTHETIC CLOUD GRAPH
+// ===========================================
+
+const cloudNodes = {
+
+    publicAPI: {
+        label: "Public API",
+        type: "entry"
+    },
+
+    webApp: {
+        label: "Web Application",
+        type: "service"
+    },
+
+    serviceRole: {
+        label: "Shared IAM Role",
+        type: "weak"
+    },
+
+    backupAPI: {
+        label: "Public Backup Endpoint",
+        type: "entry"
+    },
+
+    backupService: {
+        label: "Backup Service",
+        type: "service"
+    },
+
+    adminRole: {
+        label: "Broad Backup Role",
+        type: "weak"
+    },
+
+    database: {
+        label: "Customer Database",
+        type: "critical"
+    }
+
+};
+
+
+// Edges are possible access relationships.
+//
+// C1 and C2 are permission weaknesses.
+// Removing them breaks the relevant graph edge.
+
+const cloudEdges = [
+
+    {
+        from: "publicAPI",
+        to: "webApp"
+    },
+
+    {
+        from: "webApp",
+        to: "serviceRole"
+    },
+
+    {
+        from: "serviceRole",
+        to: "database",
+        fix: "C1"
+    },
+
+    {
+        from: "backupAPI",
+        to: "backupService"
+    },
+
+    {
+        from: "backupService",
+        to: "adminRole"
+    },
+
+    {
+        from: "adminRole",
+        to: "database",
+        fix: "C2"
+    }
+
+];
+
+
+// ===========================================
+// REMEDIATION OPTIONS
+// ===========================================
+
+const fixes = [
+
+    {
+        id: "E1",
+        text: "Remove Darshan's extra access to Project B"
+    },
+
+    {
+        id: "E2",
+        text: "Remove Rahul's extra access to Project D"
+    },
+
+    {
+        id: "E3",
+        text: "Remove Meghana's extra access to Project B"
+    },
+
+    {
+        id: "C1",
+        text: "Restrict the Shared IAM Role from accessing Customer DB"
+    },
+
+    {
+        id: "C2",
+        text: "Remove unnecessary database access from the Backup Role"
+    }
+
+];
+
+
+// Store applied fixes.
+
+let appliedFixes = new Set();
+
+
+// ===========================================
+// EMPLOYEE ACCESS CHECKING
+// ===========================================
+
+function getCurrentAccess(employee) {
+
+    return employee.access.filter(project => {
+
+        const extra = extraPermissions.find(item =>
+
+            item.employee === employee.name &&
+            item.project === project
+
+        );
+
+        if (extra && appliedFixes.has(extra.id)) {
+            return false;
+        }
+
+        return true;
+
+    });
+
+}
+
+
+function getPermissionProblems() {
+
+    let problems = [];
+
+    employees.forEach(employee => {
+
+        const actualAccess = getCurrentAccess(employee);
+
+        actualAccess.forEach(project => {
+
+            if (project !== employee.project) {
+
+                problems.push({
+
+                    employee: employee.name,
+                    assigned: employee.project,
+                    extra: project
+
+                });
+
+            }
+
+        });
+
+    });
+
+    return problems;
+
+}
+
+
+// ===========================================
+// CLOUD ATTACK PATH DETECTION
+// DEPTH FIRST SEARCH
+// ===========================================
+
+function findAttackPaths() {
+
+    const paths = [];
+
+    function dfs(current, visited, currentPath) {
+
+        if (paths.length >= 50) return;
+
+        if (cloudNodes[current].type === "critical") {
+
+            paths.push([...currentPath]);
+
+            return;
+
+        }
+
+        for (const edge of cloudEdges) {
+
+            if (edge.from !== current) {
+                continue;
+            }
+
+            if (edge.fix && appliedFixes.has(edge.fix)) {
+                continue;
+            }
+
+            if (visited.has(edge.to)) {
+                continue;
+            }
+
+            visited.add(edge.to);
+
+            currentPath.push(edge.to);
+
+            dfs(edge.to, visited, currentPath);
+
+            currentPath.pop();
+
+            visited.delete(edge.to);
+
+        }
+
+    }
+
+
+    Object.keys(cloudNodes).forEach(node => {
+
+        if (cloudNodes[node].type === "entry") {
+
+            dfs(node, new Set([node]), [node]);
+
+        }
+
+    });
+
+    return paths;
+
+}
+
+
+// ===========================================
+// BLAST RADIUS
+// GRAPH REACHABILITY
+// ===========================================
+
+function calculateBlastRadius() {
+
+    const visited = new Set();
+
+    const queue = [];
+
+    Object.keys(cloudNodes).forEach(node => {
+
+        if (cloudNodes[node].type === "entry") {
+
+            queue.push(node);
+
+            visited.add(node);
+
+        }
+
+    });
+
+    while (queue.length > 0) {
+
+        const current = queue.shift();
+
+        for (const edge of cloudEdges) {
+
+            if (edge.from !== current) {
+                continue;
+            }
+
+            if (edge.fix && appliedFixes.has(edge.fix)) {
+                continue;
+            }
+
+            if (!visited.has(edge.to)) {
+
+                visited.add(edge.to);
+
+                queue.push(edge.to);
+
+            }
+
+        }
+
+    }
+
+    // Count reachable resources except entry points.
+
+    return [...visited].filter(node =>
+
+        cloudNodes[node].type !== "entry"
+
+    ).length;
+
+}
+
+
+// ===========================================
+// SHOW EMPLOYEE TABLE
+// ===========================================
+
+function displayEmployees() {
+
+    let html = "";
+
+    employees.forEach(employee => {
+
+        const access = getCurrentAccess(employee);
+
+        const extra = access.filter(project =>
+
+            project !== employee.project
+
+        );
+
+        const status = extra.length > 0
+
+            ? "<span class='bad'>Extra Access</span>"
+
+            : "<span class='good'>Authorized</span>";
+
+
+        html += `
+
+            <tr>
+
+                <td>${employee.name}</td>
+
+                <td>Project ${employee.project}</td>
+
+                <td>${access.map(p => "Project " + p).join(", ")}</td>
+
+                <td>${status}</td>
+
+            </tr>
+
+        `;
+
+    });
+
+    document.getElementById("employeeTable").innerHTML = html;
+
+}
+
+
+// ===========================================
+// PERMISSION RESULTS
+// ===========================================
+
+function displayPermissionResults(problems) {
+
+    let html = "";
+
+    if (problems.length === 0) {
+
+        html = `
+
+            <div class="success">
+
+                No excessive employee permissions detected.
+
+            </div>
+
+        `;
+
+    } else {
+
+        problems.forEach(problem => {
+
+            html += `
+
+                <div class="warning">
+
+                    <b>Excessive Permission Detected</b>
+
+                    <p>
+                        Employee: ${problem.employee}
+                    </p>
+
+                    <p>
+                        Assigned: Project ${problem.assigned}
+                    </p>
+
+                    <p>
+                        Unnecessary Access: Project ${problem.extra}
+                    </p>
+
+                    <p>
+                        Recommendation: Remove the unnecessary access.
+                    </p>
+
+                </div>
+
+            `;
+
+        });
+
+    }
+
+    document.getElementById("permissionResults").innerHTML = html;
+
+}
+
+
+// ===========================================
+// DISPLAY CLOUD ATTACK GRAPH
+// ===========================================
+
+function displayAttackGraph(paths) {
+
+    let html = "";
+
+    if (paths.length === 0) {
+
+        html = `
+
+            <div class="success">
+
+                No active paths to the critical database
+                were found in this synthetic graph.
+
+            </div>
+
+        `;
+
+    } else {
+
+        paths.forEach((path, index) => {
+
+            html += `<h3>Attack Path ${index + 1}</h3>`;
+
+            html += `<div class="graph">`;
+
+            path.forEach((node, nodeIndex) => {
+
+                const item = cloudNodes[node];
+
+                html += `
+
+                    <div class="node ${item.type}">
+
+                        ${item.label}
+
+                        <br>
+
+                        <small>${item.type.toUpperCase()}</small>
+
+                    </div>
+
+                `;
+
+                if (nodeIndex < path.length - 1) {
+
+                    html += `<div class="arrow">➜</div>`;
+
+                }
+
+            });
+
+            html += `</div>`;
+
+        });
+
+    }
+
+    document.getElementById("attackGraph").innerHTML = html;
+
+}
+
+
+// ===========================================
+// DISPLAY RISK
+// ===========================================
+
+function displayRisk(paths, problems) {
+
+    let html = "";
+
+    if (paths.length > 0) {
+
+        html += `
+
+            <div class="warning">
+
+                <h3>HIGH RISK</h3>
+
+                <p>
+                    ${paths.length} possible cloud attack path(s)
+                    reach the critical customer database.
+                </p>
+
+                <p>
+                    These paths involve excessive cloud IAM permissions.
+                </p>
+
+            </div>
+
+        `;
+
+        paths.forEach((path, index) => {
+
+            const names = path.map(node =>
+
+                cloudNodes[node].label
+
+            );
+
+            // Illustrative, deterministic priority based on path properties.
+            // Not a CVSS score or a real-world exploitation probability.
+            const weakRoles = path.filter(node => cloudNodes[node].type === "weak").length;
+            const publicEntry = cloudNodes[path[0]].type === "entry" ? 25 : 0;
+            const criticalImpact = cloudNodes[path[path.length - 1]].type === "critical" ? 28 : 0;
+            const priority = Math.min(100, 17 + publicEntry + criticalImpact + weakRoles * 14 + Math.max(0, path.length - 3) * 3);
+            const weaknessNames = path.filter(node => cloudNodes[node].type === "weak").map(node => cloudNodes[node].label).join(", ");
+
+            html += `
+
+                <div class="path">
+
+                    <b>Path ${index + 1}</b>
+
+                    <p>${names.join(" → ")}</p>
+
+                    <p>Calculated Demo Priority: ${priority}/100 — ${priority >= 80 ? "HIGH" : priority >= 60 ? "MEDIUM" : "LOW"}</p>
+                    <p>Permission Weakness: ${weaknessNames || "None identified in path"}</p>
+
+                </div>
+
+            `;
+
+        });
+
+    } else {
+
+        html += `
+
+            <div class="success">
+
+                <h3>CRITICAL PATHS BLOCKED</h3>
+
+                <p>
+                    No active route to Customer Database
+                    remains in the modeled graph.
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+
+    html += `
+
+        <p>
+            Employee Permission Issues: ${problems.length}
+        </p>
+
+        <p>
+            Reachable Cloud Resources: ${calculateBlastRadius()}
+        </p>
+
+        <small>
+            Calculated priorities are simplified illustrative scores (not CVSS).
+            Results apply to the supplied synthetic cloud graph only.
+        </small>
+
+    `;
+
+    document.getElementById("riskResults").innerHTML = html;
+
+}
+
+
+// ===========================================
+// DISPLAY AVAILABLE FIXES
+// ===========================================
+
+function displayFixes() {
+
+    let html = "";
+
+    fixes.forEach(fix => {
+
+        const applied = appliedFixes.has(fix.id);
+
+        html += `
+
+            <div class="fix">
+
+                <label>
+
+                    <input
+
+                        type="checkbox"
+
+                        class="fixCheckbox"
+
+                        value="${fix.id}"
+
+                        ${applied ? "disabled" : ""}
+
+                    >
+
+                    ${fix.text}
+
+                </label>
+
+                ${applied
+                    ? "<span class='good'> — Applied</span>"
+                    : ""}
+
+            </div>
+
+        `;
+
+    });
+
+    document.getElementById("fixList").innerHTML = html;
+
+}
+
+
+// ===========================================
+// MAIN SECURITY ANALYSIS
+// ===========================================
+
+function analyzeSecurity() {
+
+    const problems = getPermissionProblems();
+
+    const paths = findAttackPaths();
+
+    displayEmployees();
+
+    displayPermissionResults(problems);
+
+    displayAttackGraph(paths);
+
+    displayRisk(paths, problems);
+
+    displayFixes();
+
+
+    document.getElementById("permissionCount").innerText =
+        problems.length;
+
+    document.getElementById("pathCount").innerText =
+        paths.length;
+
+    document.getElementById("blastCount").innerText =
+        calculateBlastRadius();
+
+}
+
+
+// ===========================================
+// SELECT RECOMMENDED FIXES
+// ===========================================
+
+function selectAllFixes() {
+
+    const checkboxes = document.querySelectorAll(
+        ".fixCheckbox:not(:disabled)"
+    );
+
+    checkboxes.forEach(checkbox => {
+
+        checkbox.checked = true;
+
+    });
+
+}
+
+
+// ===========================================
+// APPLY SIMULATED REMEDIATION
+// ===========================================
+
+function applyFixes() {
+
+    const selected = document.querySelectorAll(
+        ".fixCheckbox:checked"
+    );
+
+    if (selected.length === 0) {
+
+        alert("Please select at least one security fix.");
+
+        return;
+
+    }
+
+    selected.forEach(checkbox => {
+
+        appliedFixes.add(checkbox.value);
+
+    });
+
+    analyzeSecurity();
+
+    document.getElementById("remediationResults").innerHTML = `
+
+        <div class="success">
+
+            <h3>Simulated Remediation Completed</h3>
+
+            <p>
+                ${selected.length} security fix(es) applied.
+            </p>
+
+            <p>
+                Remaining excessive employee permissions:
+                ${getPermissionProblems().length}
+            </p>
+
+            <p>
+                Remaining critical attack paths:
+                ${findAttackPaths().length}
+            </p>
+
+            <p>
+                The graph and permissions have been recalculated.
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+// ===========================================
+// RESET WEBSITE
+// ===========================================
+
+function resetDemo() {
+
+    appliedFixes.clear();
+
+    analyzeSecurity();
+
+    document.getElementById("remediationResults").innerHTML = `
+
+        <div class="warning">
+
+            Demo Reset Successfully.
+
+            Original sample permissions and cloud paths restored.
+
+        </div>
+
+    `;
+
+}
+
+
+// ===========================================
+// INITIALIZE WEBSITE
+// ===========================================
+
+analyzeSecurity();
+
+</script>
+<script src="scenarios.js"></script>
+<script src="config-auditor.js"></script>
+<script src="pygenic-upgrade.js"></script>
+<script src="security-core.js"></script>
+<script src="security-samples.js"></script>
+<script src="investigation-center.js"></script>
+<script src="pygenic-voice.js"></script>
+</body>
+</html>

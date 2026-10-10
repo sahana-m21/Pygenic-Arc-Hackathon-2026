@@ -1,0 +1,67 @@
+{
+  "company": "MedVista Hospital (synthetic demo)",
+  "resources": [
+    {
+      "id": "internet",
+      "name": "Internet",
+      "kind": "entry"
+    },
+    {
+      "id": "portal",
+      "name": "Public Patient Portal",
+      "kind": "service",
+      "exposure": "public",
+      "requiresAuth": false,
+      "auditLogging": true
+    },
+    {
+      "id": "storage",
+      "name": "Patient Report Storage",
+      "kind": "storage",
+      "publicAccess": true,
+      "encryptionAtRest": false,
+      "auditLogging": false
+    },
+    {
+      "id": "role",
+      "name": "Medical Upload IAM Role",
+      "kind": "iam_role",
+      "permissions": [
+        "*"
+      ],
+      "mfaEnabled": false
+    },
+    {
+      "id": "records",
+      "name": "Patient Records Database",
+      "kind": "asset",
+      "critical": true,
+      "impact": 10,
+      "publicAccess": false,
+      "encryptionAtRest": true,
+      "auditLogging": true
+    }
+  ],
+  "connections": [
+    {
+      "from": "internet",
+      "to": "storage"
+    },
+    {
+      "from": "storage",
+      "to": "records"
+    },
+    {
+      "from": "internet",
+      "to": "portal"
+    },
+    {
+      "from": "portal",
+      "to": "role"
+    },
+    {
+      "from": "role",
+      "to": "records"
+    }
+  ]
+}

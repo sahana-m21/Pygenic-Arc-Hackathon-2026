@@ -1,0 +1,23 @@
+{
+  "name": "Organizer Synthetic Scenario - Demo Organization",
+  "description": "Cloud access route through a public API and a misconfigured backup endpoint.",
+  "nodes": {
+    "publicAPI": {"label": "Public API", "type": "entry"},
+    "webService": {"label": "Internet-facing Web Service", "type": "service"},
+    "adminRole": {"label": "Overprivileged IAM Role", "type": "weak"},
+    "backupEndpoint": {"label": "Public Backup Endpoint", "type": "entry"},
+    "backupRole": {"label": "Broad Backup Role", "type": "weak"},
+    "privateDB": {"label": "Sensitive Customer Records", "type": "critical", "impact": 10}
+  },
+  "edges": [
+    {"from": "publicAPI", "to": "webService"},
+    {"from": "webService", "to": "adminRole"},
+    {"from": "adminRole", "to": "privateDB", "fix": "IAM1", "risk": 9, "issue": "Excessive database read permission"},
+    {"from": "backupEndpoint", "to": "backupRole", "fix": "BACKUP1", "risk": 8, "issue": "Unrestricted public backup service"},
+    {"from": "backupRole", "to": "privateDB"}
+  ],
+  "fixes": [
+    {"id": "IAM1", "text": "Restrict database permissions on the web service role"},
+    {"id": "BACKUP1", "text": "Close public access to the backup endpoint"}
+  ]
+}

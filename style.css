@@ -1,0 +1,186 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #081225;
+    color: white;
+}
+
+header {
+    background: #101e36;
+    text-align: center;
+    padding: 25px;
+    border-bottom: 3px solid #00d9ff;
+}
+
+header h1 {
+    color: #00d9ff;
+    font-size: 38px;
+}
+
+header p {
+    color: #b8c9e0;
+}
+
+.container {
+    padding: 20px;
+    max-width: 1300px;
+    margin: auto;
+}
+
+.card {
+    background: #14243d;
+    padding: 22px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    border: 1px solid #294362;
+}
+
+h2 {
+    color: #00d9ff;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat {
+    background: #1b3151;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.stat h2 {
+    font-size: 30px;
+}
+
+button {
+    background: #00c6e8;
+    color: #071225;
+    border: none;
+    padding: 12px 18px;
+    margin: 5px;
+    border-radius: 7px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #67e8f9;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th {
+    background: #234466;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #38506d;
+}
+
+.good {
+    color: #4ade80;
+    font-weight: bold;
+}
+
+.bad {
+    color: #fb7185;
+    font-weight: bold;
+}
+
+.warning {
+    background: #49262f;
+    padding: 15px;
+    border-left: 5px solid #fb7185;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.success {
+    background: #164333;
+    padding: 15px;
+    border-left: 5px solid #4ade80;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.graph {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.node {
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 130px;
+}
+
+.entry {
+    background: #075985;
+}
+
+.service {
+    background: #334155;
+}
+
+.weak {
+    background: #854d0e;
+}
+
+.critical {
+    background: #991b1b;
+}
+
+.arrow {
+    font-size: 26px;
+    color: #22d3ee;
+}
+
+.path {
+    padding: 15px;
+    background: #0d1b30;
+    margin: 10px 0;
+    border-radius: 8px;
+    border-left: 4px solid #f97316;
+}
+
+.fix {
+    background: #0d1b30;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+}
+
+.fix input {
+    margin-right: 10px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #94a3b8;
+}

@@ -1,0 +1,16 @@
+PYGENIC ARC — SINGLE COMPLETE UPDATE
+====================================
+1. Right-click ZIP -> Extract All -> Extract.
+2. Open the extracted Pygenic_Arc_FINAL_Integrated folder.
+3. Double-click index.html. (No installation needed.)
+4. Check the rotating Earth on HOME. Click INVESTIGATOR to see the new work.
+5. Click CHOOSE MINIMUM FIXES, then SIMULATE SELECTED FIXES.
+6. Click VOICE GUIDE to change language, type, speak (if supported), or listen.
+7. If it works: upload all extracted website files to your EXISTING
+   Anvation-2026/pygenic-arc-cy01 GitHub repo; never upload ZIP alone.
+8. Netlify: redeploy THIS EXTRACTED FOLDER for friends to see the updates.
+
+NOTE: The AI voice guide is rule-based without a separately configured API key.
+The optional Node backend can run server-side analysis / model-based guidance,
+but the Netlify static deployment does not run that backend automatically.
+README.md has backend instructions. Do not upload secrets or real cloud data.
