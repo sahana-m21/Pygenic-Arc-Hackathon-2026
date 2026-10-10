@@ -82,3 +82,8 @@ dedication, and learning.
 This repository showcases our hackathon project.
 The original source code is maintained separately
 in a private team repository.
+## 📸 My Hackathon Project Screenshots
+
+### 🏠 Pygenic Arc Website
+
+![My Hackathon Website](PASTE_IMAGE_LINK_HERE)
