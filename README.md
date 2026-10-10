@@ -116,3 +116,41 @@ in a private team repository.
 **Project Type:** Cybersecurity Web Application
 
 **Note:** This is an educational prototype using synthetic cloud configuration data.
+---
+
+## 📸 More Project Screenshots
+
+### 📊 1. Cloud Security Dashboard
+
+![Cloud Security Dashboard](Screenshot_11-10-2026_0416_.jpeg)
+
+### 👥 2. Employee Access Management
+
+![Employee Permission Detection](Screenshot_10-10-2026_235959_.jpeg)
+
+### 🔍 3. Cloud Attack Path Analysis
+
+![Cloud Attack Path Visualization](Screenshot_11-10-2026_0018_.jpeg)
+
+### 🔐 4. Security Remediation Simulator
+
+![Security Remediation](Screenshot_10-10-2026_232043_.jpeg)
+
+### 🌐 5. Cloud Security Scenarios
+
+![Cloud Security Scenarios](Screenshot_11-10-2026_0030_.jpeg)
+
+### 🛡️ 6. Security Investigation Center
+
+![Security Investigation Center](Screenshot_11-10-2026_0056_.jpeg)
+
+### 🤖 7. Investigation Center with Voice Guide
+
+![Security Voice Guide](Screenshot_11-10-2026_0114_.jpeg)
+
+### 📄 8. Security Analysis Reports
+
+![Security Reports](Screenshot_11-10-2026_0041_.jpeg)
+
+---
+
